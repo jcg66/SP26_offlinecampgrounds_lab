@@ -1,2 +1,43 @@
-# and102-parks-2
-and102-parks-2
+# Android Lab 4 - *SP26_campgrounds_lab (Campgrounds Explorer)*
+
+Submitted by: **James Girgis**
+
+**Campgrounds Explorer** is a multi-screen Android app that allows users to scroll through a list of campgrounds and also view more details about them.
+
+Time spent: **1** hours spent in total
+
+## Required Features
+
+The following **required** functionality is completed:
+
+- [ ] **Campgrounds are displayed using the RecyclerView**
+- [ ] **Can navigate to the Campground Details screen**
+- [ ] **Campground images are downloaded and displayed using Glide**
+
+The following **additional** features are implemented:
+
+- [ ] View elements are styled in the .xml files
+
+## Video Walkthrough
+
+## Notes
+### Resources
+- Code forked from [codepath/and102-lab4-starter](https://github.com/codepath/and102-lab4-starter)
+- `README.md` template was provided as part of the CodePath project course material
+- National Park Service API: https://www.nps.gov/subjects/developer/index.htm
+
+## License
+
+    Copyright 2026 James Girgis
+
+    Licensed under the Apache License, Version 2.0 (the "License");
+    you may not use this file except in compliance with the License.
+    You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
