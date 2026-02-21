@@ -4,11 +4,14 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 
 private const val TAG = "CampgroundAdapter"
 
-class CampgroundAdapter(private val context: Context) :
+class CampgroundAdapter(private val context: Context, private val campgrounds: List<Campground>) :
     RecyclerView.Adapter<CampgroundAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -18,14 +21,20 @@ class CampgroundAdapter(private val context: Context) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         // TODO: Get the individual campground and bind to holder
+        val campground = campgrounds[position]
+        holder.bind(campground)
     }
 
-    override fun getItemCount() = 0 // Fix me!
+    override fun getItemCount() = campgrounds.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
 
         // TODO: Create member variables for any view that will be set
+        private val nameTextView = itemView.findViewById<TextView>(R.id.campgroundName)
+        private val descriptionTextView = itemView.findViewById<TextView>(R.id.campgroundDescription)
+        private val locationTextView = itemView.findViewById<TextView>(R.id.campgroundLocation)
+        private val imageView = itemView.findViewById<ImageView>(R.id.campgroundImage)
 
         init {
             itemView.setOnClickListener(this)
@@ -33,6 +42,15 @@ class CampgroundAdapter(private val context: Context) :
 
         fun bind(campground: Campground) {
             // TODO: Set item views based on views and data model
+            fun bind(campground: Campground) {
+                nameTextView.text = campground.name
+                descriptionTextView.text = campground.description
+                locationTextView.text = campground.latLong
+
+                Glide.with(context)
+                    .load(campground.imageUrl)
+                    .into(imageView)
+            }
 
         }
 
