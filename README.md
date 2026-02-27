@@ -1,4 +1,4 @@
-# Android Lab 4 - *SP26_offlinecampgrounds_lab (Campgrounds Explorer Pt. 2)*
+# Android Lab 5 - *SP26_offlinecampgrounds_lab (Campgrounds Explorer Pt. 2)*
 
 Submitted by: **James Girgis**
 
