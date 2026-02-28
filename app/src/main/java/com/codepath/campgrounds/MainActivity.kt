@@ -3,12 +3,15 @@ package com.codepath.campgrounds
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.codepath.campgrounds.databinding.ActivityMainBinding
 import com.codepath.asynchttpclient.AsyncHttpClient
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
 import okhttp3.Headers
 import org.json.JSONException
@@ -77,6 +80,21 @@ class MainActivity : AppCompatActivity() {
 
                         // COMPLETED: Save the campgrounds and reload the screen
                         campgroundAdapter.notifyItemRangeInserted(start, count)
+
+                        // update the cached list in the database
+                        lifecycleScope.launch(IO) {
+                            (application as CampgroundApplication).db.campgroundDao().deleteAll()
+                            (application as CampgroundApplication).db.campgroundDao()
+                                .insertAll(list.map {
+                                    CampgroundEntity(
+                                        name = it.name,
+                                        description = it.description,
+                                        rawLatitude = it.rawLatitude,
+                                        rawLongitude = it.rawLongitude,
+                                        imageUrl = it.imageUrl
+                                    )
+                                })
+                        }
                     }
 
 

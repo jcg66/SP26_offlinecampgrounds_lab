@@ -5,7 +5,7 @@ Submitted by: **James Girgis**
 **Campgrounds Explorer** is a multi-screen Android app that allows users to scroll through a list of campgrounds and also view more details about them.
 This offline version uses a local database for caching data in order to maintain offline functionality.
 
-Time spent: **1** hours spent in total
+Time spent: **2** hours spent in total
 
 ## Required Features
 
