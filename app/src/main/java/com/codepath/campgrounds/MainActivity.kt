@@ -47,6 +47,25 @@ class MainActivity : AppCompatActivity() {
         val campgroundAdapter = CampgroundAdapter(this, campgrounds)
         campgroundsRecyclerView.adapter = campgroundAdapter
 
+        // COMPLETED: Step 7: Load new items from our database
+        lifecycleScope.launch {
+            (application as CampgroundApplication).db.campgroundDao().getAll().collect { databaseList ->
+                databaseList.map { entity ->
+                    Campground(
+                        entity.name,
+                        entity.description,
+                        entity.rawLatitude,
+                        entity.rawLongitude,
+                        listOf(CampgroundImage(entity.imageUrl, null))
+                    )
+                }.also { mappedList ->
+                    campgrounds.clear()
+                    campgrounds.addAll(mappedList)
+                    campgroundAdapter.notifyDataSetChanged()
+                }
+            }
+        }
+
         campgroundsRecyclerView.layoutManager = LinearLayoutManager(this).also {
             val dividerItemDecoration = DividerItemDecoration(this, it.orientation)
             campgroundsRecyclerView.addItemDecoration(dividerItemDecoration)
