@@ -5,7 +5,7 @@ Submitted by: **James Girgis**
 **Campgrounds Explorer** is a multi-screen Android app that allows users to scroll through a list of campgrounds and also view more details about them.
 This offline version uses a local database for caching data in order to maintain offline functionality.
 
-Time spent: **0** hours spent in total
+Time spent: **1** hours spent in total
 
 ## Required Features
 
@@ -19,7 +19,7 @@ The following **required** functionality is completed:
 
 ## Notes
 ### Resources
-- Code copied from my [jcg66/SP26_campgrounds_lab](https://github.com/jcg66/SP26_campgrounds_lab) repo
+- Initial code copied from my [jcg66/SP26_campgrounds_lab](https://github.com/jcg66/SP26_campgrounds_lab) repo
 - `README.md` template was provided as part of the CodePath project course material
 - `offline_campgrounds_app_icon.png` and `campgrounds_image_placeholder.png` are my own work
 - `cabin_sketch` font is licensed under the the SIL Open Font License: https://fonts.google.com/specimen/Cabin+Sketch/license
