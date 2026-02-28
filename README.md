@@ -5,17 +5,29 @@ Submitted by: **James Girgis**
 **Campgrounds Explorer** is a multi-screen Android app that allows users to scroll through a list of campgrounds and also view more details about them.
 This offline version uses a local database for caching data in order to maintain offline functionality.
 
-Time spent: **2** hours spent in total
+Time spent: **3** hours spent in total
 
 ## Required Features
 
 The following **required** functionality is completed:
 
-- [ ] **Most recently fetched data is stored locally in a database**
-- [ ] **If user turns on airplane mode and closes and reopens app, old data from the database should be
+- [x] **Most recently fetched data is stored locally in a database**
+- [x] **If user turns on airplane mode and closes and reopens app, old data from the database should be
   loaded**
 
+The following **additional features** are implemented:
+
+- [x] Add Swipe To Refresh to force a new network call to get new data
+
 ## Video Walkthrough
+
+Here's a walkthrough of implemented user stories:
+
+<img src='https://i.imgur.com/1E9SYeX.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+(If the inline image preview above doesn't load, you can also view the file on Imgur here: https://imgur.com/1E9SYeX.gif )
+
+GIF created with [ScreenToGif](https://www.screentogif.com/) for Windows
 
 ## Notes
 ### Resources

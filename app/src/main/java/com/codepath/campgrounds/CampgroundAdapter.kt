@@ -12,7 +12,7 @@ import com.bumptech.glide.Glide
 
 private const val TAG = "CampgroundAdapter"
 
-class CampgroundAdapter(private val context: Context, private val campgrounds: List<Campground>) :
+class CampgroundAdapter(private val context: Context, private val campgrounds: MutableList<Campground>) :
     RecyclerView.Adapter<CampgroundAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -27,6 +27,16 @@ class CampgroundAdapter(private val context: Context, private val campgrounds: L
     }
 
     override fun getItemCount() = campgrounds.size
+
+    fun clear() {
+        campgrounds.clear()
+        notifyDataSetChanged()
+    }
+
+    fun addAll(items: List<Campground>) {
+        campgrounds.addAll(items)
+        notifyDataSetChanged()
+    }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {

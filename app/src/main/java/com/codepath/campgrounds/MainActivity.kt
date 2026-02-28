@@ -2,11 +2,13 @@ package com.codepath.campgrounds
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.codepath.campgrounds.databinding.ActivityMainBinding
 import com.codepath.asynchttpclient.AsyncHttpClient
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler
@@ -29,10 +31,12 @@ private val CAMPGROUNDS_URL =
 
 class MainActivity : AppCompatActivity() {
     private lateinit var campgroundsRecyclerView: RecyclerView
+    private lateinit var swipeContainer: SwipeRefreshLayout
     private lateinit var binding: ActivityMainBinding
 
     // COMPLETED: Create campgrounds list
     private val campgrounds = mutableListOf<Campground>()
+    private lateinit var campgroundAdapter: CampgroundAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,10 +45,15 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
+        swipeContainer = findViewById(R.id.swipeContainer)
+        swipeContainer.setOnRefreshListener {
+            fetchLiveData()
+        }
+
         campgroundsRecyclerView = findViewById(R.id.campgrounds)
 
         // COMPLETED: Set up CampgroundAdapter with campgrounds
-        val campgroundAdapter = CampgroundAdapter(this, campgrounds)
+        campgroundAdapter = CampgroundAdapter(this, campgrounds)
         campgroundsRecyclerView.adapter = campgroundAdapter
 
         // COMPLETED: Step 7: Load new items from our database
@@ -59,9 +68,8 @@ class MainActivity : AppCompatActivity() {
                         listOf(CampgroundImage(entity.imageUrl, null))
                     )
                 }.also { mappedList ->
-                    campgrounds.clear()
-                    campgrounds.addAll(mappedList)
-                    campgroundAdapter.notifyDataSetChanged()
+                    campgroundAdapter.clear()
+                    campgroundAdapter.addAll(mappedList)
                 }
             }
         }
@@ -71,6 +79,11 @@ class MainActivity : AppCompatActivity() {
             campgroundsRecyclerView.addItemDecoration(dividerItemDecoration)
         }
 
+        fetchLiveData()
+
+    }
+
+    fun fetchLiveData() {
         val client = AsyncHttpClient()
         client.get(CAMPGROUNDS_URL, object : JsonHttpResponseHandler() {
             override fun onFailure(
@@ -80,6 +93,7 @@ class MainActivity : AppCompatActivity() {
                 throwable: Throwable?
             ) {
                 Log.e(TAG, "Failed to fetch campgrounds: $statusCode")
+                swipeContainer.isRefreshing = false
             }
 
             override fun onSuccess(statusCode: Int, headers: Headers, json: JSON) {
@@ -93,12 +107,16 @@ class MainActivity : AppCompatActivity() {
 
                     // COMPLETED: Do something with the returned json (contains campground information)
                     parsedJSON.data?.let { list ->
-                        val start = campgrounds.size
-                        val count = list.size
-                        campgrounds.addAll(list)
+                        //val start = campgrounds.size
+                        //val count = list.size
+                        //campgrounds.addAll(list)
 
                         // COMPLETED: Save the campgrounds and reload the screen
-                        campgroundAdapter.notifyItemRangeInserted(start, count)
+                        //campgroundAdapter.notifyItemRangeInserted(start, count)
+
+                        campgroundAdapter.clear()
+                        campgroundAdapter.addAll(list)
+
 
                         // update the cached list in the database
                         lifecycleScope.launch(IO) {
@@ -113,12 +131,14 @@ class MainActivity : AppCompatActivity() {
                                         imageUrl = it.imageUrl
                                     )
                                 })
+                            swipeContainer.isRefreshing = false
                         }
                     }
 
 
                 } catch (e: JSONException) {
                     Log.e(TAG, "Exception: $e")
+                    swipeContainer.isRefreshing = false
                 }
             }
 
